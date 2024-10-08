@@ -1,0 +1,42 @@
+// Question1:-
+/* Create a new database named EmployeeDB, define tables for employees, departments, and salaries using DDL commands.
+Insert sample data using DML commands. Modify the structure of the EmployeeDB database by adding a new column to a table, then update existing records accordingly.*/
+CREATE DATABASE EmployeeDB;
+USE EmployeeDB;
+CREATE TABLE Departments (
+    DepartmentID INT PRIMARY KEY AUTO_INCREMENT,
+    DepartmentName VARCHAR(100) NOT NULL
+);
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY AUTO_INCREMENT,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    DepartmentID INT,
+    FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID)
+);
+CREATE TABLE Salaries (
+    SalaryID INT PRIMARY KEY AUTO_INCREMENT,
+    EmployeeID INT,
+    Salary DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID)
+);
+INSERT INTO Departments (DepartmentName)
+VALUES ('Human Resources'), ('Engineering'), ('Finance');
+INSERT INTO Employees (FirstName, LastName, DepartmentID)
+VALUES ('John', 'Doe', 1),
+       ('Jane', 'Smith', 2),
+       ('Robert', 'Brown', 3);
+INSERT INTO Salaries (EmployeeID, Salary)
+VALUES (1, 50000.00),
+       (2, 75000.00),
+       (3, 60000.00);
+ALTER TABLE Employees
+ADD COLUMN DateOfBirth DATE;
+UPDATE Employees
+SET DateOfBirth = '1980-01-15' WHERE EmployeeID = 1;
+
+UPDATE Employees
+SET DateOfBirth = '1985-07-23' WHERE EmployeeID = 2;
+
+UPDATE Employees
+SET DateOfBirth = '1990-11-30' WHERE EmployeeID = 3;
